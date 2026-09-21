@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jolly & Jumy加拿大耶依 (9/24 - 10/3)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased pb-20" x-data="{ activeTab: 'itinerary', currentDay: 'all' }">
+
+    <!-- Header Hero Section -->
+    <header class="relative bg-cover bg-center h-80 flex items-center justify-center text-white text-center px-4" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1600&q=80');">
+        <div>
+            <span class="bg-red-600 text-xs uppercase px-3 py-1 rounded-full font-bold tracking-widest mb-2 inline-block">Canada Trip</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">Jolly & Jumy加拿大耶依</h1>
+            <p class="text-slate-200 text-sm md:text-base"><i class="fa-regular fa-calendar-alt mr-1"></i> 09.24 — 10.03 (10 Days)</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-4xl mx-auto flex justify-around border-b text-sm font-medium">
+            <button @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-route"></i> 每日行程
+            </button>
+            <button @click="activeTab = 'transport'" :class="activeTab === 'transport' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-plane-departure"></i> 機票與交通
+            </button>
+            <button @click="activeTab = 'hotels'" :class="activeTab === 'hotels' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-hotel"></i> 住宿資訊
+            </button>
+            <button @click="activeTab = 'checklist'" :class="activeTab === 'checklist' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-list-check"></i> 行李與須知
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto p-4 md:p-6">
+
+        <!-- 1. 每日行程 (ITINERARY) -->
+        <section x-show="activeTab === 'itinerary'" class="space-y-6">
+            <!-- Day Filter Pills -->
+            <div class="flex overflow-x-auto gap-2 pb-2 scrollbar-none text-xs">
+                <button @click="currentDay = 'all'" :class="currentDay === 'all' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition">全部行程</button>
+                <button @click="currentDay = 'd1'" :class="currentDay === 'd1' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D1 (9/24)</button>
+                <button @click="currentDay = 'd2'" :class="currentDay === 'd2' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D2 (9/25)</button>
+                <button @click="currentDay = 'd3'" :class="currentDay === 'd3' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D3 (9/26)</button>
+                <button @click="currentDay = 'd4'" :class="currentDay === 'd4' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D4 (9/27)</button>
+                <button @click="currentDay = 'd5'" :class="currentDay === 'd5' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D5 (9/28)</button>
+                <button @click="currentDay = 'd6'" :class="currentDay === 'd6' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D6 (9/29)</button>
+                <button @click="currentDay = 'd7'" :class="currentDay === 'd7' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D7 (9/30)</button>
+                <button @click="currentDay = 'd8'" :class="currentDay === 'd8' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D8 (10/1)</button>
+                <button @click="currentDay = 'd9'" :class="currentDay === 'd9' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D9 (10/2)</button>
+                <button @click="currentDay = 'd10'" :class="currentDay === 'd10' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D10 (10/3)</button>
+            </div>
+
+            <!-- Day Cards -->
+
+            <!-- D1 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd1'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 01 — 9/24 (四)</span>
+                        <h2 class="text-xl font-bold text-slate-800">台北 ✈️ 溫哥華</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Jolly's 家</span>
+                </div>
+                <div class="space-y-3 text-sm">
+                    <div class="p-3 bg-red-50 text-red-800 rounded-lg flex items-center justify-between">
+                        <div>
+                            <span class="font-bold">BR010 長榮航空</span> — 23:30 TPE T2 起飛 ➔ 19:15 YVR M 到達
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D2 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd2'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 02 — 9/25 (五)</span>
+                        <h2 class="text-xl font-bold text-slate-800">溫哥華 - Stanley Park 史丹利公園</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Jolly's 家</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">早上</span> 睡到自然醒</div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">下午</span> 史丹利公園 Stanley Park 漫步/騎單車 
+                        <a href="https://maps.google.com/?q=Stanley+Park+Vancouver" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">晚上</span> 要烤肉嗎? 是中秋節!!! 🥮🥩</div>
+                </div>
+            </div>
+
+            <!-- D3 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd3'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 03 — 9/26 (六)</span>
+                        <h2 class="text-xl font-bold text-slate-800">溫哥華 - Granville Island 格蘭維爾島一日遊</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Jolly's 家</span>
+                </div>
+                <div class="text-sm text-slate-600">
+                    格蘭維爾島探索（大眾市場、文創小店、碼頭美景）
+                    <a href="https://maps.google.com/?q=Granville+Island+Vancouver" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-2"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                </div>
+            </div>
+
+            <!-- D4 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd4'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 04 — 9/27 (日)</span>
+                        <h2 class="text-xl font-bold text-slate-800">溫哥華 ✈️ 卡加利 🚗 Canmore 坎摩爾</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Blackstone Mountain Lodge</span>
+                </div>
+                <div class="space-y-2.5 text-sm">
+                    <div class="p-2.5 bg-blue-50 text-blue-900 rounded-lg">
+                        <i class="fa-solid fa-plane text-xs mr-1"></i> <strong>航班：</strong>Air Canada AC8064 (09:30 YVR ➔ 11:54 YYC)
+                    </div>
+                    <div class="p-2.5 bg-amber-50 text-amber-900 rounded-lg">
+                        <i class="fa-solid fa-car text-xs mr-1"></i> <strong>租車：</strong>庭筠 Alamo / 雅琪 Thrifty
+                    </div>
+                    <p class="text-slate-600"><strong>午餐建議：</strong> Heritage Park（公園內有多家餐廳可供選擇）
+                        <a href="https://maps.google.com/?q=Heritage+Park+Calgary" target="_blank" class="text-blue-600 hover:underline text-xs"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </p>
+                    <p class="text-slate-600"><strong>晚上：</strong> 開車至 Canmore 車程約 1 小時。</p>
+                </div>
+            </div>
+
+            <!-- D5 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd5'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 05 — 9/28 (一)</span>
+                        <h2 class="text-xl font-bold text-slate-800">採石湖 ➔ 哥倫比亞冰原</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Glacier View Lodge</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">早上</span> 採石湖 Quarry Lake 散步 
+                        <a href="https://maps.google.com/?q=Quarry+Lake+Canmore" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">下午</span> Canmore 駕車至 哥倫比亞冰原 Columbia Icefield (車程約 2.5 小時)</div>
+                    <div class="p-2 bg-emerald-50 text-emerald-800 rounded-md text-xs font-medium">入住星級體驗：Glacier View Lodge（景觀房 CAD $1,671 / 2房1晚）</div>
+                </div>
+            </div>
+
+            <!-- D6 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd6'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 06 — 9/29 (二)</span>
+                        <h2 class="text-xl font-bold text-slate-800">冰原冒險 ➔ 班夫鎮 Banff</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Moose Hotel & Suites</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-16 shrink-0">11:45 AM</span> 冰原雪車冒險 (Icefield Adventure)</div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-16 shrink-0">下午</span> Columbia Icefield 駕車移動至 班夫鎮 (Banff)</div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-16 shrink-0">晚上</span> 班夫上溫泉 Banff Upper Hot Springs (營業 10:00-22:00，最後入場 21:30)
+                        <a href="https://maps.google.com/?q=Banff+Upper+Hot+Springs" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D7 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd7'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 07 — 9/30 (三)</span>
+                        <h2 class="text-xl font-bold text-slate-800">夢幻雙湖：夢蓮湖 & 露易絲湖</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Moose Hotel & Suites</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-24 shrink-0">10:00-11:00</span> 夢蓮湖 Moraine Lake 
+                        <a href="https://maps.google.com/?q=Moraine+Lake" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-24 shrink-0">下午</span> 露易絲湖 Lake Louise 漫步
+                        <a href="https://maps.google.com/?q=Lake+Louise" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-24 shrink-0">晚上</span> Two Jack Lake 觀星 ✨ 
+                        <span class="text-red-600 font-bold text-xs"><i class="fa-solid fa-triangle-exclamation"></i> 班夫著名觀星點，要注意熊！</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D8 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd8'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 08 — 10/01 (四)</span>
+                        <h2 class="text-xl font-bold text-slate-800">班夫纜車 ➔ 峽谷健行 ✈️ 返回溫哥華</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Jolly's 家</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">早上</span> Banff Gondola 班夫纜車
+                        <a href="https://maps.google.com/?q=Banff+Gondola" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="flex gap-3"><span class="font-semibold text-slate-800 w-12 shrink-0">下午</span> Bow River 弓河 & Johnston Canyon 強斯頓峽谷
+                        <a href="https://maps.google.com/?q=Johnston+Canyon" target="_blank" class="text-blue-600 hover:underline text-xs flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                    <div class="p-2.5 bg-red-50 text-red-900 rounded-lg mt-2">
+                        <strong>17:00 還車 (YYC 機場)</strong><br>
+                        <strong>航班：</strong>Air Canada AC 223 (19:05 YYC ➔ 19:43 YVR)
+                    </div>
+                </div>
+            </div>
+
+            <!-- D9 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd9'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 09 — 10/02 (五)</span>
+                        <h2 class="text-xl font-bold text-slate-800">溫哥華 - Oliver 抓週 + White Rock 白石鎮</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> Jolly's 家</span>
+                </div>
+                <div class="text-sm text-slate-600 space-y-2">
+                    <p>溫哥華 - Oliver 抓週+White Rock or Capilano卡皮拉諾吊橋 
+                        <a href="https://maps.google.com/?q=Capilano+Suspension+Bridge" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 吊橋地圖</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- D10 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd10'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 10 — 10/03 (六)</span>
+                        <h2 class="text-xl font-bold text-slate-800">溫哥華 ✈️ 台北 (返家)</h2>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-house"></i> 抵達溫暖的家</span>
+                </div>
+                <div class="p-3 bg-slate-100 rounded-lg text-sm font-medium text-slate-700">
+                    <i class="fa-solid fa-plane-departure text-red-600 mr-1"></i> 02:00 AM YVR M 起飛 ➔ 05:35 AM (+1) 抵達 TPE T2
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 機票與交通 (TRANSPORT) -->
+        <section x-show="activeTab === 'transport'" class="space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plane text-red-600"></i> 國際與內陸航班資訊
+                </h3>
+                <div class="divide-y divide-slate-100 text-sm">
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">去程：台北 (TPE) ✈️ 溫哥華 (YVR)</div>
+                        <div class="text-slate-600">9/24 (四) 23:30 TPE T2 ➔ 19:15 YVR M (BR010 長榮航空)</div>
+                    </div>
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">內陸去程：溫哥華 (YVR) ✈️ 卡加利 (YYC)</div>
+                        <div class="text-slate-600">9/27 (日) 09:30 YVR ➔ 11:54 YYC (Air Canada AC8064)</div>
+                    </div>
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">內陸回程：卡加利 (YYC) ✈️ 溫哥華 (YVR)</div>
+                        <div class="text-slate-600">10/01 (四) 19:05 YYC ➔ 19:43 YVR (Air Canada AC223)</div>
+                    </div>
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">回程：溫哥華 (YVR) ✈️ 台北 (TPE)</div>
+                        <div class="text-slate-600">10/03 (六) 02:00 YVR M ➔ 05:35 (+1) TPE T2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-car text-amber-600"></i> 洛磯山脈租車資訊
+                </h3>
+                <div class="bg-amber-50 rounded-xl p-4 text-sm text-amber-900 space-y-2">
+                    <p><strong>租車配置：</strong> 庭筠 Alamo / 雅琪 Thrifty</p>
+                    <p><strong>還車時間：</strong> 10/01 (四) 17:00 前返回 YYC 機場歸還</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 住宿資訊 (HOTELS) -->
+        <section x-show="activeTab === 'hotels'" class="space-y-4">
+            <!-- Hotel 1 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-slate-800">Jolly's 家 (Surrey)</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">入住日期：9/24-9/26, 10/1-10/2</p>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">民宿 / 朋友家</span>
+                </div>
+                <div class="mt-3 text-sm text-slate-600">
+                    <p><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> 14450 17a Ave, Surrey, BC V4A 5M3 加拿大</p>
+                    <a href="https://maps.google.com/?q=14450+17a+Ave,+Surrey,+BC+V4A+5M3" target="_blank" class="text-xs text-blue-600 hover:underline mt-1 inline-block">在 Google 地圖中檢視</a>
+                </div>
+            </div>
+
+            <!-- Hotel 2 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-slate-800">Blackstone Mountain Lodge by CLIQUE</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">入住日期：9/27 (1晚)</p>
+                    </div>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-medium">Canmore</span>
+                </div>
+                <div class="mt-3 text-sm text-slate-600 space-y-1">
+                    <p><strong>房型：</strong> Standard Room 2 Queen Beds x 2 rooms</p>
+                    <a href="https://www.blackstonelodge.ca/" target="_blank" class="text-xs text-blue-600 hover:underline inline-block"><i class="fa-solid fa-globe mr-1"></i> 飯店官網</a>
+                </div>
+            </div>
+
+            <!-- Hotel 3 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-slate-800">Glacier View Lodge</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">入住日期：9/28 (1晚)</p>
+                    </div>
+                    <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-medium">冰原首選</span>
+                </div>
+                <div class="mt-3 text-sm text-slate-600 space-y-1">
+                    <p><strong>房型：</strong> Glacier View King Room</p>
+                    <p><strong>費用：</strong> CAD $1,671 / 2房1晚</p>
+                </div>
+            </div>
+
+            <!-- Hotel 4 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-slate-800">Moose Hotel & Suites</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">入住日期：9/29 - 9/30 (2晚)</p>
+                    </div>
+                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded font-medium">Banff 鎮上</span>
+                </div>
+                <div class="mt-3 text-sm text-slate-600 space-y-1">
+                    <p>• <strong>Jolly家：</strong> 1 suite bedroom w/ 1 king bed</p>
+                    <p>• <strong>Jumy家：</strong> 1 suite bedroom w/ 2 queen beds</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 行李與須知 (CHECKLIST & NOTES) -->
+        <section x-show="activeTab === 'checklist'" class="space-y-6" x-data="{ 
+            items: JSON.parse(localStorage.getItem('canada_items') || '[ \
+                { name: \'eTA 加拿大電子旅行證\', checked: false }, \
+                { name: \'護照 (效期6個月以上)\', checked: true }, \
+                { name: \'國際駕照 + 台灣駕照正本\', checked: false }, \
+                { name: \'信用卡 (建議雙幣/海外高回饋)\', checked: false }, \
+                { name: \'保暖羽絨外套 / 防風外套\', checked: false }, \
+                { name: \'發熱衣 / 保暖毛衣\', checked: false }, \
+                { name: \'太陽眼鏡 (冰原反射極強)\', checked: false }, \
+                { name: \'泳衣 / 泳褲 (Banff 泡溫泉用)\', checked: false }, \
+                { name: \'美加網卡 / 通訊 eSIM\', checked: false }, \
+                { name: \'加拿大轉接頭 / 個人充電器\', checked: false } \
+            ]'),
+            toggle(index) {
+                this.items[index].checked = !this.items[index].checked;
+                localStorage.setItem('canada_items', JSON.stringify(this.items));
+            }
+        }">
+            <!-- 行李檢查表 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-square-check text-emerald-600"></i> 行李必備清單 (點擊可勾選儲存)
+                </h3>
+                <div class="space-y-2">
+                    <template x-for="(item, index) in items" :key="index">
+                        <label @click="toggle(index)" class="flex items-center p-2.5 rounded-lg border hover:bg-slate-50 cursor-pointer transition select-none">
+                            <input type="checkbox" :checked="item.checked" class="w-4 h-4 text-red-600 rounded focus:ring-red-500 mr-3">
+                            <span :class="item.checked ? 'line-through text-slate-400' : 'text-slate-700 font-medium'" x-text="item.name"></span>
+                        </label>
+                    </template>
+                </div>
+            </div>
+
+            <!-- 注意事項 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-red-600"></i> 重要注意事項
+                </h3>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="p-3 bg-red-50 rounded-xl text-red-900">
+                        <strong>🐻 防熊安全須知 (Moraine Lake & Two Jack Lake)：</strong><br>
+                        洛磯山脈地區野生熊活動頻繁。夜晚觀星或健行時請攜帶防熊噴霧、結伴同行，並維持適當音量，切勿靠近或餵食野生動物。
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl text-slate-700">
+                        <strong>❄️ 秋季溫差與冰原裝備：</strong><br>
+                        9月底洛磯山脈氣溫較低，哥倫比亞冰原上風大且寒冷，務必準備保暖帽子、太陽眼鏡（防眩光）及抓地力良好的鞋款。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 mt-10">
+        <p>Jolly & Jumy 加拿大耶依！祝行程一切順利 🇨🇦✨</p>
+    </footer>
+
+</body>
+</html>
